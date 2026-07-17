@@ -153,7 +153,7 @@ paths:
           in: query
           description: |
             Order type filter. Can pass multiple values. If omitted, returns all types.
-            Supported values: `futures_grid`, `spot_grid`, `smart_copy`.
+            Supported values: `futures_grid`, `spot_grid`, `smart_copy`, `enhanced_aip`.
           schema:
             type: array
             items:
@@ -1069,7 +1069,7 @@ components:
         buOrderType:
           type: string
           description: |
-            Bot order type. Supported values: `futures_grid`, `spot_grid`, `smart_copy`.
+            Bot order type. Supported values: `futures_grid`, `spot_grid`, `smart_copy`, `enhanced_aip`.
         buOrderId:
           type: string
           description: Bot order ID
@@ -3248,3 +3248,126 @@ components:
           type: string
           description: Optional trading direction hint
           example: long
+
+    EnhancedAIPOrderData:
+      type: object
+      description: Order detail data for enhanced_aip (DCA + Staking) bot orders
+      properties:
+        bu_order_id:
+          type: string
+          description: Bot order ID
+        side:
+          type: string
+          description: Trade side
+          enum: [BUY, SELL]
+        quote_total_investment:
+          type: string
+          description: Total invested quote amount
+        enable_staking:
+          type: boolean
+          description: Whether staking is enabled
+        current_quote_amount:
+          type: string
+          description: Current quote amount held
+        init_quote_price:
+          type: string
+          description: Initial quote price at order creation
+        closed_quote_amount:
+          type: string
+          description: Quote amount at close
+        closed_quote_price:
+          type: string
+          description: Quote price at close
+        convert_into_earn_coin:
+          type: boolean
+          description: Whether to convert profits into earn coin
+        reason_by:
+          type: string
+          description: Close reason
+        status:
+          type: string
+          description: Order status
+        portfolio:
+          type: array
+          description: List of per-coin DCA sub-orders
+          items:
+            $ref: '#/components/schemas/EnhancedAIPPortfolio'
+        trigger_time:
+          type: integer
+          format: int64
+          description: Next trigger time (milliseconds)
+        staking_apr:
+          type: string
+          description: Current staking APR for the base coin (appended at query time)
+
+    EnhancedAIPPortfolio:
+      type: object
+      description: Per-coin DCA sub-order within an enhanced_aip bot order
+      properties:
+        bu_order_id:
+          type: string
+          description: Sub-order ID
+        base:
+          type: string
+          description: Base currency for this sub-order
+        interval:
+          type: integer
+          format: int64
+          description: DCA interval in seconds
+        per_volume:
+          type: string
+          description: Quote amount invested per DCA cycle
+        order_count:
+          type: integer
+          format: int64
+          description: Number of DCA executions so far
+        current_order_month:
+          type: string
+          description: Current order month identifier
+        init_price:
+          type: string
+          description: Initial price at sub-order creation
+        closed_price:
+          type: string
+          description: Price at sub-order close
+        average_price:
+          type: string
+          description: Average purchase price
+        raw_base_amount:
+          type: string
+          description: Total base amount purchased (before fees)
+        current_base_amount:
+          type: string
+          description: Current base amount held
+        closed_base_amount:
+          type: string
+          description: Base amount at close
+        total_fee_in_base:
+          type: string
+          description: Total fees paid in base currency
+        total_fee_in_quote:
+          type: string
+          description: Total fees paid in quote currency
+        staking_amount:
+          type: string
+          description: Amount currently staked
+        staking_profit:
+          type: string
+          description: Cumulative staking profit
+        last_trade_time:
+          type: integer
+          format: int64
+          description: Timestamp of last DCA execution (milliseconds)
+        price_limit:
+          type: string
+          description: Price limit for DCA execution
+        custom_params:
+          type: string
+          description: Custom parameters (JSON string)
+        status:
+          type: string
+          description: Sub-order status
+        first_trade_time:
+          type: integer
+          format: int64
+          description: Timestamp of first DCA execution (milliseconds)
