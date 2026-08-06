@@ -9,7 +9,7 @@ info:
 
     ## Connection Endpoints
 
-    > **Note:** The Partner API is currently **Invite Only**.
+    > **Note:** The Partner API is currently **Internal**.
 
     - **Public stream**: `wss://ws.pionex.com/wsPub` (no authentication)
     - **Private stream**: `wss://ws.pionex.com/wsUA` (requires authentication)

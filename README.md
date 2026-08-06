@@ -12,7 +12,7 @@ This repository contains machine-readable API definitions in [OpenAPI 3.0](https
 | `openapi_futures.yaml` | Futures API — Futures trading endpoints (Beta) |
 | `openapi_bot.yaml` | Bot API — Futures Grid bot endpoints (Beta) |
 | `openapi_earn_dual.yaml` | Earn API — Dual Investment endpoints (Beta) |
-| `openapi_partner.yaml` | Partner API — Partner program management endpoints (Invite Only) |
+| `openapi_partner.yaml` | Partner API — Partner program management endpoints (Internal) |
 | `openapi_wallet.yaml` | Wallet API — Account balance query endpoints |
 | `websocketapi.yaml` | WebSocket API — Real-time market data and account updates |
 
